@@ -77,5 +77,4 @@ streamlit run carrot_detection_video-liveStream.py
 - [Ultralytics YOLO Documentation](https://docs.ultralytics.com/)
 - [Streamlit Documentation](https://docs.streamlit.io/)
 - [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
-- [YOLO v11 Paper](https://arxiv.org/abs/2402.13694)
-- [ONNX Runtime](https://onnxruntime.ai/)
+- [YOLO v11 Paper](https://arxiv.org/abs/2410.17725)
