@@ -1,0 +1,19 @@
+{
+  "name": "csfintershipassessment2025",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:api": "cd api && npm start",
+    "start:web": "cd web && npm start",
+    "start": "concurrently \"npm run start:api\" \"npm run start:web\"",
+    "install:all": "npm install && cd api && npm install && cd ../web && npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Canadian Sheep Federation Internship Assessment",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
