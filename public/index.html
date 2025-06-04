@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wool Weather Tracker</title>
+
+    <!-- STYLES + BOX ICON -->
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <!-- HOME PAGE -->
+    <section id="home-page">
+        <h1>Wool Weather Tracker</h1>
+        <form id="home-page-form">
+            <input id="home-form-input" type="text" placeholder="Enter a city..." />
+            <button type="submit"><i class='bx bx-search'></i></button>
+        </form>
+
+        <div id="recent-reports">
+            <h1>Recent Reports</h1>
+            <p id="recent-reports-loading-data">Loading Data...</p>
+
+            <div id="recent-reports-items"></div>
+        </div>
+    </section>
+
+    <!-- CITY VIEWER SECTION -->
+    <section id="city-viewer" class="hidden">
+        <div id="current-city-data">
+            <img id="weather-icon" />
+
+            <div>
+                <span><strong>Temperature: </strong><span id="current-city-data-temperature"></span></span>
+                <span><strong>Weather Description: </strong><span id="current-city-data-weather-description"></span></span>
+                <span><strong>Observation Time: </strong><span id="current-city-data-observation-time"></span></span>
+            </div>
+
+            <h1 id="current-city-data-name"></h1>
+        </div>
+    </section>
+
+    <!-- CREATE REPORT FORM SECTION -->
+    <section id="create-report" class="hidden">
+        <h1>Submit a report for current city</h1>
+
+        <form id="create-report-form">
+            <label for="condition">Wool Condition:</label>
+            <select name="condition" id="condition" required>
+                <option value="Good">Good</option>
+                <option value="Fair">Fair</option>
+                <option value="Poor">Poor</option>
+            </select>
+
+            <label for="behavior">Sheep Behavior:</label>
+            <select name="behavior" id="behavior" required>
+                <option value="Calm">Calm</option>
+                <option value="Erratic">Erratic</option>
+                <option value="Aggressive">Aggressive</option>
+                <option value="Anxious">Anxious</option>
+            </select>
+
+            <button type="submit">Submit Report</button>
+
+            <button type="button" onclick="goBack()">Back</button>
+        </form>
+    </section>
+
+    <!-- VIEW REPORT SECTION -->
+    <section id="view-report" class="hidden">
+        <span><strong>ID:</strong> <span id="view-report-id"></span></span><br />
+        <span><strong>Location:</strong> <span id="view-report-location"></span></span><br />
+        <span><strong>Sheep Behavior:</strong> <span id="view-report-behavior"></span></span><br />
+        <span><strong>Wool Condition:</strong> <span id="view-report-condition"></span></span><br />
+        <span><strong>Observed Temperature:</strong> <span id="view-report-temperature"></span></span><br />
+        <span><strong>Observed Weather:</strong> <span id="view-report-weather"></span></span><br />
+        <button type="button" onclick="goBack()">Back</button>
+    </section>
+
+    <script>
+        // Page Elements
+        const homePageSection = document.getElementById('home-page');
+        const homePageForm = document.getElementById('home-page-form');
+        const homePageForm_cityInput = document.getElementById('home-form-input');
+        const recentReportsContainer = document.getElementById('recent-reports-items');
+        const reportsLoadingDataText = document.getElementById('recent-reports-loading-data');
+
+        const cityViewerSection = document.getElementById('city-viewer');
+        const currentCityDataName = document.getElementById('current-city-data-name');
+        const currentCityDataTemperature = document.getElementById('current-city-data-temperature');
+        const currentCityDataDescription = document.getElementById('current-city-data-weather-description');
+        const currentCityDataTime = document.getElementById('current-city-data-observation-time');
+
+        const createReportSection = document.getElementById('create-report');
+        const createReportForm = document.getElementById('create-report-form');
+        const createReportForm_conditionInput = document.getElementById('condition');
+        const createReportForm_behaviorInput = document.getElementById('behavior');
+        const selectedCondition = createReportForm_conditionInput.value;
+        const selectedBehavior = createReportForm_behaviorInput.value;
+
+        const viewReportSection = document.getElementById('view-report');
+        const viewReportID = document.getElementById('view-report-id');
+        const viewReportLocation = document.getElementById('view-report-location');
+        const viewReportBehavior = document.getElementById('view-report-behavior');
+        const viewReportCondition = document.getElementById('view-report-condition');
+        const viewReportTemperature = document.getElementById('view-report-temperature');
+        const viewReportWeather = document.getElementById('view-report-weather');
+
+        // Ref variables
+        let currentCity = "";
+        let currentCityTemperature = "";
+        let currentWeatherDescription = "";
+
+        // Handles home page city form
+        homePageForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // stop page from reloading
+
+            try {
+                const response = await fetch('/api/fetch-weather', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ city: homePageForm_cityInput.value })
+                });
+
+                if(!response.ok) {
+                    alert("Failed loading fetching weather data.");
+                    return;
+                }
+
+                // extract location and current object from response
+                const { location, current } = await response.json();
+
+                // update ref variables, set element values
+                currentCity = `${location.name}, ${location.country}`;
+                currentCityTemperature = `${current.temperature}°C`;
+                currentWeatherDescription = current.weather_descriptions.join(', ');
+
+                currentCityDataName.textContent = currentCity;
+                currentCityDataTemperature.textContent = currentCityTemperature;
+                currentCityDataDescription.textContent = currentWeatherDescription;
+                currentCityDataTime.textContent = location.localtime;
+            } catch (error) {
+                alert("Failed loading fetching weather data.");
+                console.error(error);
+            } finally {
+                // hide home page, show city viewer
+                homePageSection.classList.add('hidden');
+                cityViewerSection.classList.remove('hidden');
+                createReportSection.classList.remove('hidden');
+            }
+        });
+
+        // Handles create report for city form
+        createReportForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // get req values
+            const condition = createReportForm_conditionInput.value;
+            const behavior = createReportForm_behaviorInput.value;
+            const location = currentCity;
+            const temperature = currentCityTemperature;
+            const weather_description = currentWeatherDescription;
+
+            try {
+                // send request to insert backend route
+                const response = await fetch('/api/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ location, condition, behavior, temperature, weather_description })
+                });
+
+                if (!response.ok) {
+                    alert("Failed submitting report.");
+                } else {
+                    const { id } = await response.json();
+                    alert(`Report submitted successfully! (ID: ${id})`);
+
+                    goBack();
+                }
+            } catch (error) {
+                alert("Failed submitting report.");
+                console.error(error);
+            }
+        });
+
+        // resets all form inputs
+        function resetFormInputs() {
+            homePageForm_cityInput.value = '';
+            createReportForm_conditionInput.selectedIndex = 0;
+            createReportForm_behaviorInput.selectedIndex = 0;
+        }
+
+        // resets form inputs and hides city viewer and create report form, essentially going back to the "main page"
+        async function goBack() {
+            resetFormInputs();
+            homePageSection.classList.remove('hidden');
+            cityViewerSection.classList.add('hidden');
+            createReportSection.classList.add('hidden');
+
+            if(!viewReportSection.classList.contains('hidden')) {
+                viewReportSection.classList.add('hidden');
+            }
+
+            // reload recent reports
+            await loadRecentReports();
+        }
+
+        // Views a specific report
+        async function viewReport(id) {
+            try {
+                // send request to fetch row to backend route
+                const response = await fetch(`/api/${id}`);
+
+                if(!response.ok) {
+                    alert("Failed viewing report.");
+                    return;
+                }
+
+                const data = await response.json();
+
+                // update view report elements
+                viewReportID.textContent = data.id;
+                viewReportLocation.textContent = data.location;
+                viewReportBehavior.textContent = data.behavior;
+                viewReportCondition.textContent = data.condition;
+                viewReportTemperature.textContent = data.temperature;
+                viewReportWeather.textContent = data.weather_description;
+            } catch (error) {
+                alert("Failed viewing report.");
+                console.error(error);
+            } finally {
+                // hide everything but view report section
+                homePageSection.classList.add('hidden');
+                cityViewerSection.classList.add('hidden');
+                createReportSection.classList.add('hidden');
+                viewReportSection.classList.remove('hidden');
+            }
+        }
+
+        // Loads all recent reports (queries the /api/ backend route)
+        async function loadRecentReports() {
+            try {
+                const response = await fetch("/api/");
+
+                if(!response.ok) {
+                    alert("Failed loading all entries.");
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Append report element to recent report container
+                recentReportsContainer.innerHTML = ''; // clear first, in case the user is loading reports after submitting one
+                data.forEach((report) => {
+                    const reportElement = document.createElement('div');
+
+                    reportElement.innerHTML = `
+                        <strong>Location:</strong> ${report.location}<br />
+                        <strong>Sheep Behavior:</strong> ${report.behavior}<br />
+                        <strong>Wool Condition:</strong> ${report.condition}<br /><br />
+                        <button onclick="viewReport(${report.id})">View Report</button>
+                    `;
+
+                    recentReportsContainer.appendChild(reportElement);
+                });
+            } catch (error) {
+                alert("Failed loading all entries.");
+                console.error(error);
+            } finally {
+                if(!reportsLoadingDataText.classList.contains('hidden')) {
+                    reportsLoadingDataText.classList.add('hidden'); // hide the element once loading is done.
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRecentReports(); // load reports once the page has finished loading
+        });
+    </script>
+</body>
+</html>
