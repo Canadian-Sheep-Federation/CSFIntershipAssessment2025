@@ -117,4 +117,4 @@ This app can be deployed on any Node-compatible platform (e.g. Vercel, Heroku, R
 2. Use a production-ready SQLite database.
 
 ## Demo
-...
+https://github.com/user-attachments/assets/983e3348-346d-40d0-b769-3edf362800fa
