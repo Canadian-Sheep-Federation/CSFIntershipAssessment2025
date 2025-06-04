@@ -25,6 +25,8 @@ pip install -r requirements.txt
 
 ## Usage
 
+
+
 ### 1. Carrot Detection from Images
 
 The `carrots_detection_image.py` script demonstrates how to detect carrots in static images:
@@ -48,6 +50,11 @@ python carrots_detection_image.py
 ### 2. Live Video Stream Detection
 
 The `carrot_detection_video-liveStream.py` script enables real-time carrot detection from video streams:
+
+### Class Configuration
+Before running the video/live-stream classification demo, ensure that 'carrot' is included in the classes you want to detect. 
+
+
 
 ```python
 from ultralytics import solutions
