@@ -5,7 +5,7 @@ export const CREATE_TRACKER_ENTRY_TABLE = `
         location TEXT NOT NULL,
         behavior TEXT NOT NULL,
         condition TEXT NOT NULL,
-        temperature INTEGER NOT NULL,
+        temperature TEXT NOT NULL,
         weather_description TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )

@@ -64,18 +64,13 @@ apiRouter.post('/fetch-weather', async (req, res) => {
     const apiKey = process.env.WEATHER_STACK_API_KEY;
     const { city } = req.body;
 
-    // no city inputted.
-    if(!city) {
-        return res.status(400).json({ error: "City is required." });
-    }
-
     try {
         // fetch weather data
         const response = await fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${city}&units=m`);
         const data = await response.json();
 
         if(data.error) {
-            return res.status(400).json({ error: data.error.info });
+            return res.status(500).json({ error: "Internal Server Error" });
         }
 
         return res.json(data);
