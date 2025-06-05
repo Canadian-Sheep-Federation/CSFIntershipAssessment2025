@@ -1,28 +1,50 @@
 "use client"
-import Image from "next/image";
-import {MdPlayArrow} from "react-icons/md";
-import {FaArrowRight, FaCirclePlus} from "react-icons/fa6";
+
+import {FaArrowRight, FaCirclePlus, FaSpinner} from "react-icons/fa6";
+import {FormEvent, useEffect, useState} from "react";
+import {getCat} from "@/services/cataas.api";
 
 export default function Home() {
 
-    const catImg = "https://cataas.com/cat/rynTlTM9SkeOjlTT/says/Hello?position=center&font=Impact&fontSize=50&fontColor=%23fff&fontBackground=none"
+    const [catImg, setCatImg] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
-    const onSubmit = async (e) => {
-        e.preventDefault()
+    const loadCat = () => {
+        setIsLoading(true)
+        getCat().then(cat => {
+            setCatImg(cat.url)
+            setIsLoading(false)
+        }).catch(err => setIsLoading(false))
+
     }
+
+    useEffect(() => {
+        loadCat()
+    }, [])
+
+    const onSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+
+    }
+
     return (
-        <div className={"flex flex-col gap-4 items-center justify-center h-screen"}>
-            <h1 className={"text-3xl"}>Register a new cat</h1>
+        <div className={"flex flex-col gap-4 items-center justify-center py-4"}>
             <form className={"bg-white p-6 rounded-lg shadow-md"} onSubmit={onSubmit}>
+                <h1 className={"text-3xl mb-8"}>Register A New Cat</h1>
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                     Choose a cat
                 </label>
                 <div className={"mb-8 flex flex-col gap-2"}>
-                    <img className={"rounded-md"} height={300} width={300}
-                         src={catImg} alt={"Cat photo"}/>
-                    <button
+                    {catImg && <img className={"rounded-md"} height={300} width={300}
+                                    src={catImg} alt={"Cat photo"}/>}
+
+                    {!isLoading && <button
+                        type={"button"}
+                        onClick={loadCat}
                         className={"flex items-center gap-2 justify-center rounded-full cursor-pointer bg-blue-200 px-4 py-1"}>See
-                        next <FaArrowRight/></button>
+                        next <FaArrowRight/></button>}
+                    {isLoading && <span
+                        className={"flex items-center gap-2 justify-center rounded-full bg-blue-200 px-4 py-1"}><FaSpinner/> Loading...</span>}
                 </div>
 
                 <div className={"mb-4"}>
@@ -52,6 +74,7 @@ export default function Home() {
                         type="number" step={0.1} min={2} max={15} id="weight" placeholder="Weight in kg"/>
                 </div>
                 <button
+                    type={"submit"}
                     className={"flex items-center gap-2 justify-center rounded-full cursor-pointer text-white bg-blue-500 px-4 py-1"}>
                     <FaCirclePlus/> Save cat
                 </button>
