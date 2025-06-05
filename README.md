@@ -125,6 +125,9 @@ Software Developer Intern Applicant
 
 ---
 
+![image](https://github.com/user-attachments/assets/775d23f9-adff-492a-ad89-08cc026ceb0f)
+
+
 ## 📜 License
 
 This project is open-source and available for educational/demo purposes.
