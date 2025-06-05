@@ -1,5 +1,3 @@
-# CSF Intership Assessment 2024
+# CSF Intership Assessment 2024 - AI Developer Assessment
 
-If you are interested in an internship opportunity with the Canadian Sheep Federation for Summer 2023, please complete the tasks outlined in the .md file relevant to what you are interested in doing this summer.
-
-E.g. those interested in QA should complete the QA assignment.
+The solution for this assessment is divided into two parts. The first part represent a toy implementation of a logistic regression for a binary classification (carrot/not_carrot). The second part of the assessment is an adaptation of the model to process a video and detect if any carrot is found.
