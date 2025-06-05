@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>iTunes Track Feedback</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎵 iTunes Track Feedback</h1>
+      <p>Search for music and leave your thoughts!</p>
+    </header>
+
+    <section class="search-section">
+      <input type="text" id="searchInput" placeholder="Search for songs..." />
+      <button onclick="searchSongs()">Search</button>
+    </section>
+
+    <section id="results" class="results-section"></section>
+
+    <section class="feedback-section">
+      <h2>📝 All Feedback</h2>
+      <ul id="feedbackList"></ul>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
