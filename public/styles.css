@@ -1,0 +1,78 @@
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 2em;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 0.5em;
+  margin: 0.25em;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 0.5em 1em;
+  margin: 0.25em 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.results-section .song {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.results-section img {
+  border-radius: 8px;
+}
+
+.results-section audio {
+  display: block;
+  margin: 0.5em 0;
+}
+
+.feedback-section ul {
+  list-style: none;
+  margin-top: 1em;
+  padding-left: 0;
+}
+
+.feedback-section li {
+  padding: 0.5em;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 0.5em;
+}
