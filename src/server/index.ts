@@ -32,8 +32,8 @@ app.get('/api/cat-facts', async (req, res) => {
 
 app.post('/api/responses', async (req, res) => {
   try {
-    const { catFactId, userResponse } = req.body;
-    const response = new Response({ catFactId, userResponse });
+    const { catFactId, userName, userResponse } = req.body;
+    const response = new Response({ catFactId, userName, userResponse });
     await response.save();
     res.status(201).json(response);
   } catch (error) {

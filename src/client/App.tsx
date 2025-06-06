@@ -12,6 +12,7 @@ import {
   Box
 } from '@mui/material';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 interface CatFact {
   _id: string;
@@ -21,16 +22,18 @@ interface CatFact {
 interface Response {
   _id: string;
   catFactId: string;
+  userName: string;
   userResponse: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 const App: React.FC = () => {
   // useState hooks to update datas
   const [catFacts, setCatFacts] = useState<CatFact[]>([]);
   const [responses, setResponses] = useState<Response[]>([]);
-  const [selectedFact, setSelectedFact] = useState<string>('');
+  const [selectedFactId, setSelectedFactId] = useState<string>('');
   const [userResponse, setUserResponse] = useState<string>('');
+  const [userName, setUserName] = useState<string>('')
 
   useEffect(() => {
     fetchCatFacts();
@@ -41,8 +44,8 @@ const App: React.FC = () => {
   const fetchCatFacts = async () => {
     try {
       const response = await axios.get('https://meowfacts.herokuapp.com/?count=5');
-      const transformedFacts = response.data.data.map((text: string, index: number) => ({
-        _id: `fact-${index}`,
+      const transformedFacts = response.data.data.map((text: string) => ({
+        _id: uuidv4(),
         text: text
       }));
       setCatFacts(transformedFacts);
@@ -55,6 +58,7 @@ const App: React.FC = () => {
   const fetchResponses = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/responses');
+      console.log(response.data); 
       setResponses(response.data);
     } catch (error) {
       console.error('Error fetching responses:', error);
@@ -63,13 +67,15 @@ const App: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedFact || !userResponse) return;
+    if (!userResponse) return;
 
     // Submit the response to the server
     try {
       await axios.post('http://localhost:3000/api/responses', {
-        catFactId: selectedFact,
-        userResponse
+        catFactId: selectedFactId || uuidv4(),
+        userName: userName,
+        userResponse: userResponse,
+        date: new Date()
       });
       setUserResponse('');
       fetchResponses();
@@ -96,9 +102,9 @@ const App: React.FC = () => {
             <ListItem 
               key={fact._id}
               button
-              selected={selectedFact === fact._id}
+              selected={selectedFactId === fact._id}
               onClick={() => {
-                setSelectedFact(fact._id)
+                setSelectedFactId(fact._id)
                 setUserResponse(fact.text)
               }}
             >
@@ -113,35 +119,43 @@ const App: React.FC = () => {
           <Typography variant="h5" gutterBottom>
             Add Your Response
           </Typography>
-          {!selectedFact && (
+          {(!selectedFactId && !userResponse || !userName) && (
             <Typography variant="body2" color="error" sx={{ mb: 2 }}>
-              Please select a cat fact first
+              {(!selectedFactId && !userResponse) && "Please select a cat fact or enter your own"}
+              {(!selectedFactId && !userResponse) && !userName && " and "}
+              {!userName && "Please enter your name"}
             </Typography>
           )}
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
               multiline
+              rows={2}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              placeholder="Enter your name"
+              sx={{ mb: 2 }}
+              error={!userName}
+            />
+
+            <TextField
+              fullWidth
+              multiline
               rows={4}
               value={userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
-              placeholder="Enter your response to the selected cat fact..."
+              placeholder="Enter your response or the selected cat fact..."
               sx={{ mb: 2 }}
-              error={!selectedFact}
-              disabled={!selectedFact}
+              error={!userResponse && !selectedFactId}
             />
+
             <Button 
               variant="contained" 
               type="submit"
-              disabled={!selectedFact || !userResponse}
+              disabled={(!selectedFactId && !userResponse) || !userName}
             >
               Submit Response
             </Button>
-            {!userResponse && selectedFact && (
-              <Typography variant="body2" color="error" sx={{ mt: 1 }}>
-                Please enter your response
-              </Typography>
-            )}
           </form>
         </CardContent>
       </Card>
@@ -157,6 +171,25 @@ const App: React.FC = () => {
               <ListItem key={response._id}>
                 <ListItemText
                   primary={fact?.text}
+                  secondary={
+                    <>
+                      <Typography component="span" variant="body2" color="text.secondary">
+                        {response.userName}
+                      </Typography>
+                      {" — "}
+                      <Typography component="span" variant="body2">
+                        {response.userResponse}
+                      </Typography>
+                      {" • "}
+                      <Typography component="span" variant="body2" color="text.secondary">
+                        {new Date(response.createdAt).toLocaleDateString('en-US', {
+                          month: '2-digit',
+                          day: '2-digit',
+                          year: 'numeric'
+                        })}
+                      </Typography>
+                    </>
+                  }
                 />
               </ListItem>
             );
