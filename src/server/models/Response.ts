@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Response schema to be saved on mongodb
 const responseSchema = new mongoose.Schema({
   catFactId: { type: String, required: true },
   userResponse: { type: String, required: true },

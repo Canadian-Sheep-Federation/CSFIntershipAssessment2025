@@ -26,6 +26,7 @@ interface Response {
 }
 
 const App: React.FC = () => {
+  // useState hooks to update datas
   const [catFacts, setCatFacts] = useState<CatFact[]>([]);
   const [responses, setResponses] = useState<Response[]>([]);
   const [selectedFact, setSelectedFact] = useState<string>('');
@@ -36,6 +37,7 @@ const App: React.FC = () => {
     fetchResponses();
   }, []);
 
+  // Fetch cat facts from public API meowfacts
   const fetchCatFacts = async () => {
     try {
       const response = await axios.get('https://meowfacts.herokuapp.com/?count=5');
@@ -49,6 +51,7 @@ const App: React.FC = () => {
     }
   };
 
+  // Fetch the response from the server
   const fetchResponses = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/responses');
@@ -62,6 +65,7 @@ const App: React.FC = () => {
     e.preventDefault();
     if (!selectedFact || !userResponse) return;
 
+    // Submit the response to the server
     try {
       await axios.post('http://localhost:3000/api/responses', {
         catFactId: selectedFact,
