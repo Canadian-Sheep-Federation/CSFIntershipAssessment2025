@@ -38,7 +38,7 @@ const App: React.FC = () => {
 
   const fetchCatFacts = async () => {
     try {
-      const response = await axios.get('https://meowfacts.herokuapp.com/?count=10');
+      const response = await axios.get('https://meowfacts.herokuapp.com/?count=5');
       const transformedFacts = response.data.data.map((text: string, index: number) => ({
         _id: `fact-${index}`,
         text: text
