@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cat Facts Feedback</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="main-wrapper">
+    <header class="app-header">
+      <h1>🐱 Cat Facts Feedback</h1>
+      <p class="tagline">Discover and rate fascinating feline insights!</p>
+    </header>
+
+    <main class="content-area">
+      <section class="fact-display-section card">
+        <h2>Current Cat Fact</h2>
+        <div id="fact-box" class="fact-box">Loading...</div>
+      </section>
+
+      <section class="feedback-form-section card">
+        <h2>Submit Your Feedback</h2>
+        <form id="feedback-form">
+          <input type="hidden" id="fact" name="fact" />
+          
+          <div class="form-group">
+            <label for="rating">Rate this fact (1–5):</label>
+            <select id="rating" name="rating" required>
+              <option value="">Choose</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Comment (optional):</label>
+            <textarea id="comment" name="comment" rows="4" placeholder="Enter your thoughts here..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+      </section>
+
+      <section class="all-feedback-section card">
+        <h2>📋 All Feedback</h2>
+        <ul id="feedback-list" class="feedback-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
