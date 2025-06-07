@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSF Web App</title>
+</head>
+<body>
+  <h1>Sheep Details Input Form</h1>
+
+  <!-- <section>
+    <form id="feedback-form">
+      <label>  Title:
+        <input type="text" name="title" required />
+      </label><br/>
+      <label>Rating (1-5):
+        <input type="number" name="rating" min="1" max="5" required />
+      </label><br/>
+      <label>Comment:
+        <textarea name="comment" required></textarea>
+      </label><br/>
+      <button type="submit">Submit</button>
+    </form>
+  </section> -->
+
+  <section>
+    <h2>All Feedback</h2>
+    <ul id="responses-list"></ul>
+  </section>
+
+  <section>
+    <h2>Search Movies (via OMDB API)</h2>
+    <input type="text" id="search-query" placeholder="Enter movie name" />
+    <button id="search-btn">Search</button>
+    <ul id="search-results"></ul>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
