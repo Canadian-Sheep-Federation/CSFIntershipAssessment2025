@@ -17,3 +17,7 @@ export async function GET(req: Request) {
     headers: { "Content-type": "application/json" },
   });
 }
+
+export function POST(req: Request){
+
+}

@@ -30,10 +30,10 @@ db.serialize(() => {
       if (err) {
         return console.error(err.message);
       }
-      console.log("Created cats table.");
+      //console.log("Created cats table.");
 
-      // Clear the existing data in the products table
-      db.run(`DELETE FROM cats`, (err: any) => {
+      // Clear the existing data in the cats table
+      /*db.run(`DELETE FROM cats`, (err: any) => {
         if (err) {
           return console.error(err.message);
         }
@@ -57,16 +57,17 @@ db.serialize(() => {
           console.log(`Rows inserted, ID ${id}`);
         });
 
-        //   Close the database connection after all insertions are done
-        db.close((err: any) => {
-          if (err) {
-            return console.error(err.message);
-          }
-          console.log("Closed the database connection.");
-        });
-      });
+
+      });*/
     },
   );
+  //Close databas connection
+  db.close((err: any) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log("Closed the database connection.");
+  });
 });
 
 export async function openDb() {
