@@ -1,0 +1,58 @@
+.results {
+    margin-bottom: 50px;
+}
+
+.fields {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#return-data {
+    font-size: large;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
+    outline: 1px solid black;
+}
+
+.go {
+    width: 60px;
+    height: 50px;
+    font-size: large;
+    color: white;
+    background: rgb(0, 165, 82);
+}
+
+.go:hover {
+    background: rgb(0, 153, 77);
+    cursor: pointer;
+}
+
+.clear {
+    width: 120px;
+    height: 50px;
+    font-size: large;
+    color: white;
+    background: rgb(254, 0, 0);
+}
+
+.clear:hover {
+    background: rgb(219, 0, 0);
+    cursor: pointer;
+}
+
+.all-returned {
+    margin-top: 50px;
+}
+
+.returned-entry {
+    display: flex;
+    list-style-type: none;
+}
+
+.returned-entry li {
+    font-size: large;
+}

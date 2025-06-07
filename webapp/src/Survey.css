@@ -1,0 +1,115 @@
+.survey {
+    margin: 0 auto;
+    padding: 0 50px;
+    text-align: center;
+}
+
+#enter-userid {
+    margin-bottom: 50px;
+    font-size: large;
+    border-radius: 10px;
+    padding: 5px;
+    border:none;
+    outline: 1px solid black;
+}
+
+.pick-region {
+    margin: 0 auto 50px;
+}
+
+#region {
+    font-size: large;
+    border-radius: 20px;
+    padding: 5px;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
+    outline: 1px solid black;
+}
+
+#region:hover {
+    cursor: pointer;
+    background-color: rgb(212, 212, 212);
+}
+
+.search {
+    margin: 0 auto;
+}
+
+.pokemon-list {
+    list-style-type: none;
+}
+
+#pokemon-search {
+    font-size: large;
+    border-radius: 10px;
+    padding: 5px;
+    border:none;
+    outline: 1px solid black;
+}
+
+ul {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 25px auto 25px;
+    max-width: 420px;
+    padding: 10px;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+
+li {
+    margin: auto;
+    padding: 10px;
+    width: 80%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+li:hover {
+    cursor: pointer;
+    background-color: rgb(212, 212, 212);
+}
+
+.pick-type {
+    margin: 25px auto 50px;
+}
+
+#types {
+    font-size: large;
+    border-radius: 20px;
+    padding: 5px;
+    text-align: left;
+    padding-left: 10px;
+    border: none;
+    outline: 1px solid black;
+}
+
+#types:hover {
+    cursor: pointer;
+    background-color: rgb(212, 212, 212);
+}
+
+.selected {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.submit {
+    width: 100px;
+    height: 40px;
+    margin: 0px auto 50px;
+    font-size: large;
+    color: white;
+    background: rgb(254, 0, 0);
+}
+
+.submit:hover {
+    background: rgb(219, 0, 0);
+    cursor: pointer;
+}
+
+.final-message {
+    margin: 0px auto 50px;
+}
