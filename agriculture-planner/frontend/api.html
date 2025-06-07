@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Test Page</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>API Test Page</h1>
+    <nav>
+      <a href="index.html"
+         style="color: #005f73; text-decoration: none; font-weight: bold;">
+        ◀️ Back to Home
+      </a>
+    </nav>
+  </header>
+
+  <!-- SECTION: Create a New Agriculture Plan (POST /api) -->
+  <section>
+    <h2>Create a New Plan (POST /api)</h2>
+    <form id="create-plan-form">
+      <label>
+        Crop:
+        <input type="text" id="api-crop" required />
+      </label>
+      <label>
+        City:
+        <input type="text" id="api-city" required />
+      </label>
+      <label>
+        Activity:
+        <select id="api-activity" required>
+          <option value="">-- Select an activity --</option>
+          <option value="Planting">Planting</option>
+          <option value="Irrigation">Irrigation</option>
+          <option value="Fertilizing">Fertilizing</option>
+          <option value="Harvesting">Harvesting</option>
+          <option value="Weeding">Weeding</option>
+        </select>
+      </label>
+      <label>
+        Area (acres):
+        <input type="number" id="api-area" step="0.1" required />
+      </label>
+      <label>
+        Expected Yield (%):
+        <input type="number" id="api-expected-yield" step="0.1" required />
+      </label>
+      <label>
+        Seed Type:
+        <input type="text" id="api-seed-type" required />
+      </label>
+      <label>
+        Notes:
+        <textarea id="api-notes" rows="2"></textarea>
+      </label>
+      <label>
+        <em>(Optional) Current Temperature (°C):</em>
+        <input type="number" id="api-temp" step="0.1" />
+      </label>
+      <label>
+        <em>(Optional) Condition:</em>
+        <input type="text" id="api-condition" placeholder="e.g. Partly cloudy" />
+      </label>
+      <button type="submit">Submit (POST /api)</button>
+    </form>
+    <div id="create-plan-result" style="margin-top: 0.5rem;"></div>
+  </section>
+
+  <!-- SECTION: Get One Plan (GET /api/:id) -->
+  <section>
+    <h2>Get a Single Plan by ID (GET /api/:id)</h2>
+    <form id="get-one-form">
+      <label>
+        Plan ID:
+        <input type="number" id="get-one-id" required />
+      </label>
+      <button type="submit">Fetch Plan</button>
+    </form>
+    <pre id="get-one-result"
+         style="background:#f9f9f9; padding:1rem; margin-top:0.5rem; border-radius:4px;">
+    </pre>
+  </section>
+
+  <!-- SECTION: Get All Plans (GET /api) -->
+  <section>
+    <h2>Get All Plans (GET /api)</h2>
+    <button id="get-all-btn">Fetch All Plans</button>
+    <pre id="get-all-result"
+         style="background:#f9f9f9; padding:1rem; margin-top:0.5rem; border-radius:4px;">
+    </pre>
+  </section>
+
+  <!-- Include the external script -->
+  <script src="api.js"></script>
+</body>
+</html>
