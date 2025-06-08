@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import PokemonSearch from './components/PokemonSearch';
+import SurveyForm from './components/SurveyForm';
+import ResponseList from './components/ResponseList';
 
 function App() {
+  const [selected, setSelected] = useState('');
+  const [refresh, setRefresh] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: 20, fontFamily: 'sans-serif' }}>
+      <h1>Pokémon Survey</h1>
+      <PokemonSearch onSelect={setSelected} />
+      <SurveyForm
+        favoritePokemon={selected}
+        onSubmitted={() => setRefresh(r => r + 1)}
+      />
+      <ResponseList key={refresh} />
     </div>
   );
 }
