@@ -1,6 +1,0 @@
-# to help us maintain a permanent, structured log, add this code where detection is triggered
-import csv
-log_file = open("detections.csv", "a", newline="")
-log_writer = csv.writer(log_file)
-log_writer.writerow(["Carrot Detected", time.strftime("%Y-%m-%d %H:%M:%S")])
-log_file.close()
