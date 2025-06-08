@@ -65,7 +65,7 @@ src/
 - [OMDb API Key](https://www.omdbapi.com/apikey.aspx)
 - [Google Gemini API Key](https://ai.google.dev/)
 
-> ⚠️ Never commit your real keys to GitHub. Use `.gitignore` to exclude `application.properties` and track only the `.example` file.
+
 
 ## 🧠 Gemini Prompt Example
 
