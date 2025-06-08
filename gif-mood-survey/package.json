@@ -1,0 +1,16 @@
+{
+  "name": "gif-mood-survey",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend/app\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "react-router-dom": "^7.6.2",
+    "react-simple-star-rating": "^5.1.7"
+  }
+}

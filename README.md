@@ -1,5 +1,101 @@
-# CSF Intership Assessment 2024
+# CSF Internship Assessment 2024
 
-If you are interested in an internship opportunity with the Canadian Sheep Federation for Summer 2023, please complete the tasks outlined in the .md file relevant to what you are interested in doing this summer.
+## Project Overview
 
-E.g. those interested in QA should complete the QA assignment.
+This project demonstrates full-stack development skills by building a RESTful API and a web application that integrates with a public API. The backend is built with Node.js/Express and MongoDB, and the frontend uses React (Vite).
+
+---
+
+## Quick Start
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [npm](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com/) (for backend; can use local or cloud instance)
+
+### 1. Clone the repository
+```
+git clone <your-fork-url>
+cd CSFIntershipAssessment2025/gif-mood-survey
+```
+
+### 2. Install dependencies
+```
+cd backend
+npm install
+cd ../frontend/app
+npm install
+cd ../../
+```
+
+### 3. Start both servers together (from gif-mood-survey root)
+```
+npm run dev
+```
+
+### 4. Access the app
+- Frontend: Open the URL shown in the terminal (usually http://localhost:5173)
+- Backend API: Runs on http://localhost:3000 by default
+
+---
+
+## Project Structure
+- backend/ — Node.js/Express API, MongoDB data store
+- frontend/app/ — React web application (Vite)
+
+---
+
+## Features
+- Submit and view survey responses
+- Integrates with a public API for additional data
+- RESTful API with endpoints:
+  - POST / — Submit survey
+  - GET /{id} — Get survey by ID
+  - GET / — List all surveys
+
+---
+
+## Bonus Points: Extending, Improving, and Deploying the Application
+
+### 1. Application & API Extensions
+- **User Profiles & Social Features:**
+  - Add user authentication and profiles, allowing users to create accounts, manage their submissions, and interact with others.
+  - Transform the app into a social network where users can rate, comment on, and favorite GIFs or survey responses.
+  - Enable users to curate personal collections (e.g., "Favorites" and "All" tabs).
+- **Advanced Survey Features:**
+  - Allow users to create their own surveys or polls.
+  - Add analytics dashboards for survey results.
+- **Public API Integration:**
+  - Integrate with more public APIs (e.g., trending GIFs, meme generators, or NFT marketplaces).
+  - Enable sharing of GIFs or survey results on social media.
+- **Scalability:**
+  - Refactor the backend to a microservices architecture for better scalability and maintainability.
+  - Use FSD (Feature Sliced Design) architecture in the frontend for future growth.
+- **NFT & Marketplace Extensions:**
+  - Allow users to mint their favorite GIFs as NFTs and trade them in a marketplace.
+
+### 2. Deployment Strategies
+- **Frontend Deployment:**
+  - Deploy the frontend to Vercel, Netlify, or similar platforms for fast, global delivery.
+  - Use Tailwind CSS for rapid UI development and consistent design.
+- **Backend Deployment:**
+  - Use Render.com for simple backend deployment, or consider Railway for quick Node.js hosting.
+  - For more advanced setups, use Docker containers and deploy to cloud providers like AWS, Azure, or Google Cloud.
+  - Set up CI/CD pipelines with GitHub Actions, GitLab CI, or Bitbucket Pipelines for automated testing and deployment.
+  - For large-scale production, consider Kubernetes orchestration.
+- **Testing:**
+  - Add dedicated test folders for both backend and frontend.
+  - Implement unit and integration tests for all deployed features to ensure reliability and maintainability.
+
+### 3. UI/UX Improvements
+- **Intuitive Design:**
+  - Conduct UX research and usability testing to ensure the app is user-friendly and accessible.
+  - Follow best UI/UX practices, including responsive layouts, clear navigation, and accessible color schemes.
+  - Use Tailwind CSS for a modern, maintainable, and customizable UI.
+- **Continuous Improvement:**
+  - Gather user feedback and iterate on the design.
+  - Add animations, transitions, and micro-interactions for a great user experience.
+
+---
+
+For more details, see the code comments and documentation in each folder.
