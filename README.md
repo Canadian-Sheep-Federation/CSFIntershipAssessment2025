@@ -1,4 +1,4 @@
-# CSF Internship Assessment 2025
+# CSF Internship Assessment 2025 Kostia Novosydliuk
 
 ## Project Overview
 
