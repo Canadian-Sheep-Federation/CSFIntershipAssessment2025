@@ -1,7 +1,7 @@
 import { submitSheep } from "../api/SubmitSheep.js";
 import { Sheep } from "../entity/Sheep.js";
 import { addSheep, getSheepList } from "../data/SheepList.js";
-import { renderGrid } from "../components/SheepGrid.js";
+import { renderGrid } from "./SheepGrid.js";
 
 export function setupNewSheepForm() {
   const form = document.getElementById("new-sheep-form");
