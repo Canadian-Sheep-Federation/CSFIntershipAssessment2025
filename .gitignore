@@ -1,0 +1,6 @@
+# Ignore node modules
+api/node_modules/
+webapp/node_modules/
+
+# Ignore the SQLite database file
+api/database.sqlite
