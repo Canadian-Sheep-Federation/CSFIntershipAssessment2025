@@ -30,35 +30,6 @@ db.serialize(() => {
       if (err) {
         return console.error(err.message);
       }
-      //console.log("Created cats table.");
-
-      // Clear the existing data in the cats table
-      /*db.run(`DELETE FROM cats`, (err: any) => {
-        if (err) {
-          return console.error(err.message);
-        }
-        console.log("All rows deleted from cats");
-
-        // Insert new data into cats table
-        const values1 = [
-          "Garry",
-          "https://cataas.com/cat/wGuGDDq2UKUj1bTv/says/Hello?position=center&font=Impact&fontSize=50&fontColor=%23fff&fontBackground=none",
-          2,
-          3.4,
-        ];
-
-        const insertSql = `INSERT INTO cats(name, photo_url, age, weight) VALUES(?, ?, ?, ?)`;
-
-        db.run(insertSql, values1, function (err: any) {
-          if (err) {
-            return console.error(err.message);
-          }
-          const id = this.lastID; // get the id of the last inserted row
-          console.log(`Rows inserted, ID ${id}`);
-        });
-
-
-      });*/
     },
   );
   //Close databas connection
