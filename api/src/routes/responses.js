@@ -1,14 +1,18 @@
 import express from 'express';
-import responsesRouter from './routes/responses.js';
+import { openDB } from '../db.js';
+const router = express.Router();
 
-const app = express();
-app.use(express.json());
+// Create table if it doesn't exist
+(async () => {
+  const db = await openDB();
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS responses (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      favoritePokemon TEXT NOT NULL,
+      comment TEXT NOT NULL
+    )
+  `);
+})();
 
-// Mount routes under /responses
-app.use('/responses', responsesRouter);
-
-// Check
-app.get('/', (req, res) => res.send('CSF API is running'));
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
+export default router;
