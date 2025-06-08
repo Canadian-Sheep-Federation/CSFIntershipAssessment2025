@@ -15,7 +15,7 @@ This project demonstrates full-stack development skills by building a RESTful AP
 
 ### 1. Clone the repository
 ```
-git clone <your-fork-url>
+git clone https://github.com/a1stok/CSFIntershipAssessment2025.git
 cd CSFIntershipAssessment2025/gif-mood-survey
 ```
 
@@ -27,6 +27,21 @@ cd ../frontend/app
 npm install
 cd ../../
 ```
+
+### 2.1. Set up environment variables
+- **Backend:**
+  - Create a `.env` file in `gif-mood-survey/backend/` with:
+    ```
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/gifmoodsurvey
+    ```
+  - Make sure your MongoDB server is running and accessible. For easier setup and management, you can use [MongoDB Compass](https://www.mongodb.com/products/compass)
+- **Frontend:**
+  - Create a `.env` file in `gif-mood-survey/frontend/app/` with:
+    ```
+    VITE_GIPHY_API_KEY=YOUR_GIPHY_API_KEY
+    ```
+  - You can get a free Giphy API key at: https://developers.giphy.com/docs/api/#quick-start-guide
 
 ### 3. Start both servers together (from gif-mood-survey root)
 ```
