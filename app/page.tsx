@@ -8,13 +8,14 @@ import { Cat } from "@/data/types";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function Home() {
-  const apiUrl = `http://localhost:${window.location.port}/api/cats`;
+  const apiUrl = `http://localhost:${window.location.port || 3000}/api/cats`;
 
   const [catImg, setCatImg] = useState("");
   const [cats, setCats] = useState<Cat[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<any>(null);
 
+  // Function to fetch a random cat image from the Cataas API
   const loadCat = () => {
     setIsLoading(true);
     getCat()
@@ -25,11 +26,13 @@ export default function Home() {
       .catch(() => setIsLoading(false));
   };
 
+  // Load a random cat image and fetch all cats when the component mounts
   useEffect(() => {
     loadCat();
     getAllCats();
   }, []);
 
+  // Zod schema for form validation
   const formSchema = z.object({
     name: z.string().min(3, "Name is required"),
     age: z.number().min(1).max(40),
@@ -37,6 +40,8 @@ export default function Home() {
     photoUrl: z.string(),
   });
 
+  // Function to handle form validation
+  // Returns an object with either errors or a success message
   const handleSubmit = (formData: FormData) => {
     const parsedData = formSchema.safeParse({
       name: formData.get("name"),
@@ -50,12 +55,14 @@ export default function Home() {
     return { message: "Form submitted successfully" };
   };
 
+  // Function to handle form submission
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const result = handleSubmit(formData);
 
     if (result.errors) {
+      // If there are validation errors, set them in the state
       setErrors(result.errors);
     } else {
       //save cat to Database
@@ -77,6 +84,7 @@ export default function Home() {
     }
   };
 
+  // Function to fetch all cats from the API
   const getAllCats = async () => {
     const response = await fetch(apiUrl);
     if (!response.ok) {
@@ -85,6 +93,7 @@ export default function Home() {
     setCats(await response.json());
   };
 
+  // Function to delete a cat by ID
   const deleteCat = async (id: number) => {
     if (!confirm("Are you sure you want to delete this cat?")) {
       return;

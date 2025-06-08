@@ -1,5 +1,7 @@
-import { openDb } from "@/data/db";
+import { openDb } from "@/data/connection";
 
+
+// GET all cats api/cats/
 export async function GET(req: Request) {
   const db = await openDb();
 
@@ -17,10 +19,11 @@ export async function GET(req: Request) {
     {
       status: 500,
       headers: { "Content-type": "application/json" },
-    },
+    }
   );
 }
 
+// POST Add new cat api/cats/
 export async function POST(req: Request) {
   const formData = await req.formData();
 
@@ -35,7 +38,7 @@ export async function POST(req: Request) {
         {
           status: 201,
           headers: { "Content-type": "application/json" },
-        },
+        }
       );
     } else {
       return new Response(JSON.stringify({ message: "Cannot persist data" }), {
@@ -49,7 +52,7 @@ export async function POST(req: Request) {
       {
         status: 500,
         headers: { "Content-type": "application/json" },
-      },
+      }
     );
   }
 }

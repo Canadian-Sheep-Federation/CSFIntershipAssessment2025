@@ -41,6 +41,7 @@ db.serialize(() => {
   });
 });
 
+//Opening the database using sqlite package
 export async function openDb() {
   return await open({
     filename: "data/database.sqlite",
