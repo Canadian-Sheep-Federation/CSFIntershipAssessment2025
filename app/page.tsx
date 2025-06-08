@@ -8,6 +8,8 @@ import { Cat } from "@/data/types";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function Home() {
+  const apiUrl = `http://localhost:${window.location.port}/api/cats`;
+
   const [catImg, setCatImg] = useState("");
   const [cats, setCats] = useState<Cat[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +59,7 @@ export default function Home() {
       setErrors(result.errors);
     } else {
       //save cat to Database
-      const response = await fetch("http://localhost:3000/api/cats", {
+      const response = await fetch(apiUrl, {
         method: "POST",
         body: formData,
       });
@@ -76,11 +78,25 @@ export default function Home() {
   };
 
   const getAllCats = async () => {
-    const response = await fetch("http://localhost:3000/api/cats");
+    const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error("Failed to fetch cats");
     }
     setCats(await response.json());
+  };
+
+  const deleteCat = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this cat?")) {
+      return;
+    }
+    const response = await fetch(`${apiUrl}/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Failed to delete cat");
+    }
+    alert((await response.json()).message);
+    getAllCats();
   };
 
   return (
@@ -222,7 +238,7 @@ export default function Home() {
           </thead>
           <tbody>
             {cats.map((cat) => (
-              <tr>
+              <tr key={cat.id}>
                 <td className="px-4 py-2">{cat.name}</td>
                 <td className="px-4 py-2">{`${cat.age} yo`}</td>
                 <td className="px-4 py-2">{`${cat.weight} kg`}</td>
@@ -233,7 +249,7 @@ export default function Home() {
                   />
                 </td>
                 <td className="px-4 py-2">
-                  <button className="text-red-500 hover:text-red-700 cursor-pointer">
+                  <button onClick={() => deleteCat(cat.id)} className="text-red-500 hover:text-red-700 cursor-pointer">
                     <FaTrashAlt size={24} />
                   </button>
                 </td>
