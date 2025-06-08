@@ -1,0 +1,7 @@
+# Log each carrot detection to a CSV file with a timestamp
+import csv
+import time
+
+with open("detections.csv", "a", newline="") as log_file:
+    log_writer = csv.writer(log_file)
+    log_writer.writerow(["Carrot Detected", time.strftime("%Y-%m-%d %H:%M:%S")])

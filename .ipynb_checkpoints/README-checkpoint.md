@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# CSF Intership Assessment 2024
-
-If you are interested in an internship opportunity with the Canadian Sheep Federation for Summer 2023, please complete the tasks outlined in the .md file relevant to what you are interested in doing this summer.
-
-E.g. those interested in QA should complete the QA assignment.
-=======
 
 Joanne Mabior: AI Developer Intern Assessment
 
@@ -12,7 +5,7 @@ Joanne Mabior: AI Developer Intern Assessment
 
 ## Video Processing Pipeline
 
-The section `video_processing_pipeline.ipynb` simulates how a model that can identify carrots in still images might also be extended to handle live video. The idea is to process each frame of a video feed, detect any carrots, and log the detection time. While the actual model is simulated here, the structure demonstrates how real-time video input could be connected to a detection system.
+This section simulates how a model that can identify carrots in still images might be extended to handle live video. The idea is to process each frame of a video feed, detect any carrots, and log the detection time. While the actual model is simulated here, the structure demonstrates how real-time video input could be connected to a detection system.
 
 A small code snippet is included that logs any detections to a CSV file. In a real-world application, this could help track the presence of items over time, such as in a grocery store setting.
 
@@ -37,4 +30,3 @@ This demo illustrates core concepts in machine learning classification using sim
 - `log_snippet.txt`: Snippet used to write detection data to CSV
 - `toy_classification.ipynb`: Notebook demonstrating classification fundamentals
 - `README.md`: Summary and context of the assessment work
->>>>>>> 7c00581 (Initial commit: video pipeline and classification demo)
