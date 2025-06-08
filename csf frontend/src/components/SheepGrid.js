@@ -1,4 +1,5 @@
 export function renderGrid(data, containerId = "sheep-grid") {
+  console.log("Rendering sheep grid with data:", data);
   const container = document.getElementById(containerId);
   container.innerHTML = "";
 
@@ -24,18 +25,35 @@ export function renderGrid(data, containerId = "sheep-grid") {
   }
 
   function buildTable(dataset) {
+    container.innerHTML = "";
     const table = document.createElement("table");
     table.className =
-      "w-full max-w-5xl mx-auto border-collapse shadow-md rounded-xl overflow-hidden";
+      "w-full mx-auto border-collapse shadow-md rounded-xl overflow-hidden";
 
     const thead = document.createElement("thead");
-    thead.className = "bg-gray-100";
+    thead.className = "bg-gray-300";
 
     const headRow = document.createElement("tr");
 
     headers.forEach(({ key, label }) => {
       const th = document.createElement("th");
-      th.textContent = label;
+      // Determine if this column is currently sorted
+      const isSorted = sortConfig.key === (key === "location" ? "latitude" : key);
+      // Choose arrow: ▲ for ascending, ▼ for descending, or both if not sorted
+      let arrow = "";
+      if (isSorted) {
+        arrow = sortConfig.direction === 1 ? "▲" : "▼";
+      } else {
+        arrow = "▲▼";
+      }
+
+      // Use a flex container to separate label and arrow
+      th.innerHTML = `
+        <span class="flex flex-row items-center justify-between w-full">
+          <span>${label}</span>
+          <span class="ml-2 text-xs">${arrow}</span>
+        </span>
+      `;
       th.className =
         "px-6 py-3 text-left text-sm font-medium text-gray-700 cursor-pointer hover:text-black";
       th.onclick = () => {
