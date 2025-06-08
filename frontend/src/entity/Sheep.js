@@ -1,16 +1,17 @@
 export class Sheep {
-  constructor({ name, age, breed, weightKg, gender, latitude, longitude }) {
+  constructor({ name, age, breed, weightKg, gender, location, latitude, longitude }) {
     this.name = name;
     this.age = age;
     this.breed = breed;
     this.weightKg = weightKg;
     this.gender = gender;
+    this.location = location;
     this.latitude = latitude;
     this.longitude = longitude;
   }
 
   getLocationString() {
-    return `(${this.latitude}, ${this.longitude})`;
+    return `(${this.location})`;
   }
 
   getSummary() {

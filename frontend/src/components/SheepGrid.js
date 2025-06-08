@@ -9,7 +9,7 @@ export function renderGrid(data, containerId = "sheep-grid") {
     { key: "breed", label: "Breed" },
     { key: "weightKg", label: "Weight (kg)" },
     { key: "gender", label: "Gender" },
-    { key: "location", label: "Location (Lat, Long)" },
+    { key: "location", label: "Location" },
   ];
 
   let sortConfig = { key: null, direction: 1 };
@@ -80,7 +80,7 @@ export function renderGrid(data, containerId = "sheep-grid") {
         sheep.breed,
         sheep.weightKg,
         sheep.gender,
-        sheep.getLocationString(),
+        sheep.location,
       ];
 
       cells.forEach((text) => {
