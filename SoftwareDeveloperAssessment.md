@@ -59,7 +59,9 @@ You must build a web application that:
 
 ## Discuss how the application and api should be deployed
 
+
 ## Intuitive design and user interface
+
 
 # Submission
 
