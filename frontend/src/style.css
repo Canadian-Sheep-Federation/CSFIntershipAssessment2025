@@ -18,7 +18,7 @@ body {
   min-height: 100vh;
 }
 
-/* autocomplete style */
+/* autocomplete styles */
 .geoapify-autocomplete-input {
   @apply w-full p-4 border border-black rounded text-sm;
 }
