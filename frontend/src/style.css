@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
+
+/* base font stack and rendering */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* cleaner body layout */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* autocomplete styles */
+.geoapify-autocomplete-input {
+  @apply w-full p-4 border border-black rounded text-sm;
+}
+
+/* uniform button look  */
+.p_button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.8em;
+  color: #000;
+  font-family: inherit;
+  background-color: #14aa00;
+  cursor: pointer;
+  transition: background-color 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  /* Use cubic-bezier for a smoother effect */
+}
+
+.p_button:hover {
+  background-color: #129600;
+  transform: scale(1.05);
+}

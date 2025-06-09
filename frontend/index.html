@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="/src/style.css" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐑</text></svg>"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSF</title>
+  </head>
+  <body class="min-h-screen bg-gray-50 flex flex-col items-center p-2">
+      <!-- Header -->
+    <div class="flex w-[95vw] flex-row justify-between my-4">
+      <button id="open-add-modal" class="p_button">
+        <p class="text-xl font-semibold">Add New Sheep</p>
+      </button>
+
+      <div class="text-5xl font-bold text-center text-black">
+        Sheep Data Dashboard
+      </div>
+
+      <button id="open-get-modal" class="p_button">
+        <p class="text-xl font-semibold">Find Sheep by ID</p>
+      </button>
+    </div>
+    <div id="toast" class="fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded shadow-md hidden z-50">
+      Sheep added successfully!
+    </div>
+
+    <!-- Add Sheep Modal -->
+    <div id="add-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center hidden z-50">
+      <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md relative">
+        <button class="absolute top-3 right-5 text-xl scale-150 cursor-pointer" onclick="document.getElementById('add-modal').classList.add('hidden')">×</button>
+        <form id="new-sheep-form" class="space-y-4">
+          <h2 class="text-xl font-semibold">Add New Sheep</h2>
+          <input name="name" placeholder="Name" class="w-full p-2 border rounded text-sm" required />
+          <input type="number" name="age" placeholder="Age" class="w-full p-2 border rounded text-sm" required min="1" step="any"/>
+          <input name="breed" placeholder="Breed" class="w-full p-2 border rounded text-sm" required />
+          <input type="number" name="weightKg" placeholder="Weight (kg)" class="w-full p-2 border rounded text-sm" required min="1" step="any"/>
+          <select name="gender" class="w-full p-2 border rounded text-sm" required >
+            <option value="">Select Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+            <div id="autocomplete" class="relative"></div>
+          <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">
+            Submit Sheep
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Get Sheep Modal -->
+    <div id="get-modal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center hidden z-50">
+      <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-md relative">
+        <button class="absolute top-3 right-5 text-xl scale-150 cursor-pointer" onclick="document.getElementById('get-modal').classList.add('hidden')">×</button>
+        <form id="get-sheep-form" class="space-y-4">
+          <h2 class="text-xl font-semibold">Find Sheep by ID</h2>
+          <input type="text" name="sheepId" placeholder="Enter Sheep ID" class="w-full p-2 border rounded" required />
+          <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+            Get Sheep
+          </button>
+          <div id="sheep-result" class="text-sm text-gray-700 mt-4"></div>
+          <div id="sheep-map" class="w-full h-64 rounded mt-4 hidden"></div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Grid output -->
+    <div class="w-[95vw]" id="sheep-grid"></div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      document.getElementById("open-add-modal").onclick = () =>
+        document.getElementById("add-modal").classList.remove("hidden");
+      document.getElementById("open-get-modal").onclick = () =>
+        document.getElementById("get-modal").classList.remove("hidden");
+    </script>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+  </body>
+</html>
