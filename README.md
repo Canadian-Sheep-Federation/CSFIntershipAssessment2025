@@ -1,5 +1,3 @@
-# CSF Intership Assessment 2024
+# CSF Intership Assessment 2025 AI Developer 
 
-If you are interested in an internship opportunity with the Canadian Sheep Federation for Summer 2023, please complete the tasks outlined in the .md file relevant to what you are interested in doing this summer.
-
-E.g. those interested in QA should complete the QA assignment.
+I completed the AI Developer Assessment [HERE](https://github.com/optimak/CSFIntershipAssessment2025/blob/main/csf_AI_DEVELOPER/csf1.ipynb). 
