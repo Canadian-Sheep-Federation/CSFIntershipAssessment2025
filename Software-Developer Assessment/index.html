@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Survey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #1e3c72;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #1e3c72;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      background: #1e3c72;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #16325c;
+    }
+
+    #responses li {
+      background: #f2f6ff;
+      margin-bottom: 10px;
+      padding: 12px 16px;
+      border-left: 5px solid #1e3c72;
+      border-radius: 6px;
+    }
+
+    #search {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
+
+    #movie-info {
+      background-color: #f4f4f4;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      white-space: pre-wrap;
+      margin-top: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      input, textarea, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Movie Survey</h1>
+
+    <form id="movie-form">
+      <input type="text" id="title" placeholder="Movie Title" required>
+      <textarea id="opinion" placeholder="Your Opinion" required></textarea>
+      <input type="number" id="rating" min="1" max="10" placeholder="Rating (1-10)" required>
+      <button type="submit">Submit Response</button>
+    </form>
+
+    <h2>📝 All Responses</h2>
+    <ul id="responses"></ul>
+
+    <h2>🔍 Search Movie Info</h2>
+    <input type="text" id="search" placeholder="Enter a movie title...">
+    <button onclick="searchMovie()">Search</button>
+    <pre id="movie-info"></pre>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000';
+
+    document.getElementById('movie-form').onsubmit = async function (e) {
+      e.preventDefault();
+      const movieTitle = document.getElementById('title').value;
+      const userOpinion = document.getElementById('opinion').value;
+      const rating = parseInt(document.getElementById('rating').value);
+
+      const res = await fetch(API_URL + '/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ movieTitle, userOpinion, rating })
+      });
+
+      const data = await res.json();
+      alert('🎉 Submitted! Entry ID: ' + data.id);
+      loadResponses();
+    };
+
+    async function loadResponses() {
+      const res = await fetch(API_URL);
+      const responses = await res.json();
+      const ul = document.getElementById('responses');
+      ul.innerHTML = '';
+      responses.forEach(r => {
+        const li = document.createElement('li');
+        li.textContent = `${r.movieTitle} - ${r.userOpinion} (Rating: ${r.rating}/10)`;
+        ul.appendChild(li);
+      });
+    }
+
+    async function searchMovie() {
+      const title = document.getElementById('search').value.trim();
+      if (!title) return alert('Please enter a movie title!');
+      const res = await fetch(`https://www.omdbapi.com/?t=${title}&apikey=e2f57634`);
+      const data = await res.json();
+      document.getElementById('movie-info').textContent = JSON.stringify(data, null, 2);
+    }
+
+    loadResponses();
+  </script>
+</body>
+</html>
