@@ -1,0 +1,50 @@
+import { open, Database } from "sqlite";
+import sqlite3 from "sqlite3";
+
+const sq3 = require("sqlite3").verbose();
+
+// Connecting to or creating a new SQLite database file
+const db = new sq3.Database(
+  "data/database.sqlite",
+  sq3.OPEN_READWRITE | sq3.OPEN_CREATE,
+  (err: any) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log("Connected to the SQlite database.");
+  },
+);
+
+// Serialize method ensures that database queries are executed sequentially
+db.serialize(() => {
+  // Create the cats table if it doesn't exist
+  db.run(
+    `CREATE TABLE IF NOT EXISTS cats (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        photo_url TEXT NOT NULL,
+        age INTEGER NOT NULL,
+        weight DECIMAL(4,2) DEFAULT 2.00
+      )`,
+    (err: any) => {
+      if (err) {
+        return console.error(err.message);
+      }
+    },
+  );
+  //Close databas connection
+  db.close((err: any) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log("Closed the database connection.");
+  });
+});
+
+//Opening the database using sqlite package
+export async function openDb() {
+  return await open({
+    filename: "data/database.sqlite",
+    driver: sqlite3.Database,
+  });
+}
