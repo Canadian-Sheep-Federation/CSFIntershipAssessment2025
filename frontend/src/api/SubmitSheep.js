@@ -1,3 +1,4 @@
+// This function submits a sheep object to the server and returns the response containing the sheep ID.
 export async function submitSheep(payload) {
   const res = await fetch("http://localhost:3000/api/sheep", {
     method: "POST",

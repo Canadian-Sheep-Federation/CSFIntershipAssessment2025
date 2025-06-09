@@ -1,3 +1,4 @@
+// This file defines the Sheep class, which represents a sheep entity with various properties and methods.
 export class Sheep {
   constructor({ name, age, breed, weightKg, gender, location, latitude, longitude }) {
     this.name = name;

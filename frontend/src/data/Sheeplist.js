@@ -1,5 +1,6 @@
 import { Sheep } from "../entity/Sheep.js";
 
+// Manages the sheep list in frontend, simulating a repository to reduce number of calls to GET api (from adding new sheep).
 let sheepList = []; // ready to be populated from backend
 
 export function getSheepList() {

@@ -1,20 +1,34 @@
+import { openDb } from "../infrastructure/Db.js";
 import { Sheep } from "../entity/Sheep.js";
 
-let sheepList = [
-  new Sheep({ id: 1, name: "Dolly", age: 4, breed: "Merino", weightKg: 65, gender: "female", location: "180 St George Street, Toronto, ON M5R 2M1, Canada", latitude: 45.42, longitude: -75.69 }),
-  new Sheep({ id: 2, name: "Shaun", age: 2, breed: "Suffolk", weightKg: 70, gender: "male", location: "182 St George Street, Toronto, ON M5R 2N3, Canada", latitude: 53.54, longitude: -113.49 }),
-];
-
-let nextId = 3;
-
+// Handles data access, interfaces with infrastructure.
 export const SheepRepository = {
-  getAllSheep: () => sheepList,
+  async getAllSheep() {
+    const db = await openDb();
+    const rows = await db.all("SELECT * FROM sheep");
+    return rows.map(row => new Sheep(row));
+  },
 
-  getSheepById: (id) => sheepList.find(s => s.id === id),
+  async getSheepById(id) {
+    const db = await openDb();
+    const row = await db.get("SELECT * FROM sheep WHERE id = ?", id);
+    return row ? new Sheep(row) : null;
+  },
 
-  addSheep: (sheepData) => {
-    const newSheep = new Sheep({ id: nextId++, ...sheepData });
-    sheepList.push(newSheep);
-    return newSheep;
+  async addSheep(sheepData) {
+    const db = await openDb();
+
+    const { name, age, breed, weightKg, gender, location, latitude, longitude } = sheepData;
+
+    const result = await db.run(
+      `INSERT INTO sheep (name, age, breed, weightKg, gender, location, latitude, longitude)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name, age, breed, weightKg, gender, location, latitude, longitude]
+    );
+
+    return new Sheep({
+      id: result.lastID,
+      ...sheepData
+    });
   }
 };

@@ -1,4 +1,5 @@
 
+// This function fetches all sheep from the backend API
 export async function fetchAllSheep() {
   const apiUrl = import.meta.env.VITE_API_URL
   const res = await fetch(`${apiUrl}`);

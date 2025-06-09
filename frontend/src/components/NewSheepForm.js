@@ -4,18 +4,18 @@ import { addSheep, getSheepList } from "../data/SheepList.js";
 import { renderGrid } from "./SheepGrid.js";
 import { GeocoderAutocomplete } from '@geoapify/geocoder-autocomplete';
 
-
+// Handles the form for adding new sheep, including location autocomplete and submission logic.
 export function setupNewSheepForm() {
   const form = document.getElementById("new-sheep-form");
 
   // 1. Location autocomplete setup
   let selectedCoordinates = { latitude: null, longitude: null, formatted: null };
   // const preview = document.getElementById("location-preview");
-
-  const autocomplete = new GeocoderAutocomplete(
     //import.meta.env.VITE_GEO_AUTO_COMPLETE_KEY
+  const autocomplete = new GeocoderAutocomplete(
+
     document.getElementById("autocomplete"),
-    "962d133db1804339a706a24667866dc7", // ← replace with your actual Geoapify API key
+    import.meta.env.VITE_GEO_AUTO_COMPLETE_KEY, // ← replace with your actual Geoapify API key
     {
       placeholder: "Search location...",
       filter: { countrycode: ["us", "ca"] },
@@ -66,7 +66,12 @@ export function setupNewSheepForm() {
       const newSheep = new Sheep({ ...payload });
       addSheep(newSheep); // Add to local state
       renderGrid(getSheepList()); // Re-render the datagrid
+      const toast = document.getElementById("toast");
+      toast.textContent = `Sheep added with ID ${result.id}`;
+      toast.classList.remove("hidden");
 
+      // Auto-hide after 2 seconds
+      setTimeout(() => toast.classList.add("hidden"), 3000);
       form.reset();
       // preview.textContent = "";
       selectedCoordinates = { latitude: null, longitude: null };

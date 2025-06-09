@@ -1,5 +1,6 @@
 import { SheepRepository } from "../repositorie/SheepRepository.js";
 
-export function getSheepByIdUseCase(id) {
-  return SheepRepository.getSheepById(id);
+// get sheep by ID use case
+export async function getSheepByIdUseCase(id) {
+  return await SheepRepository.getSheepById(id);
 }

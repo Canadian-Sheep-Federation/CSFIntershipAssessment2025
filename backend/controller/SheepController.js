@@ -2,14 +2,15 @@ import { getAllSheepUseCase } from "../application/GetAllSheep.js";
 import { getSheepByIdUseCase } from "../application/GetSheepById.js";
 import { addSheepUseCase } from "../application/AddSheep.js";
 
-export function getAllSheep(req, res) {
-  const sheep = getAllSheepUseCase();
+// Handles HTTP request/response.
+export async function getAllSheep(req, res) {
+  const sheep = await getAllSheepUseCase();
   res.status(200).json(sheep);
 }
 
-export function getSheepById(req, res) {
+export async function getSheepById(req, res) {
   const id = parseInt(req.params.id);
-  const sheep = getSheepByIdUseCase(id);
+  const sheep = await getSheepByIdUseCase(id);
 
   if (!sheep) {
     return res.status(404).json({ message: "Sheep not found" });
@@ -18,10 +19,14 @@ export function getSheepById(req, res) {
   res.status(200).json(sheep);
 }
 
-export function addSheep(req, res) {
-  const sheepData = req.body;
-  const newSheep = addSheepUseCase(sheepData);
-  console.log("New sheep added:", newSheep);
-  res.status(201).json(newSheep);
+export async function addSheep(req, res) {
+  try {
+    const newSheep = await addSheepUseCase(req.body);
+    res.status(201).json({ id: newSheep.id }); // return the ID
+  } catch (err) {
+    console.error("Add sheep error:", err);
+    res.status(500).json({ error: "Failed to add sheep" });
+  }
 }
+
 

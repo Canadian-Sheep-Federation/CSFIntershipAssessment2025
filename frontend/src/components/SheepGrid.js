@@ -1,3 +1,4 @@
+// data grid component for displaying sheep data
 export function renderGrid(data, containerId = "sheep-grid") {
   console.log("Rendering sheep grid with data:", data);
   const container = document.getElementById(containerId);

@@ -1,3 +1,4 @@
+// Defines the core business entity (Sheep) with its properties.
 export class Sheep {
   constructor({ id, name, age, breed, weightKg, gender, location, latitude, longitude }) {
     this.id = id;
