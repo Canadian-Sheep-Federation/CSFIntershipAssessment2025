@@ -110,7 +110,7 @@ export default function Home() {
   };
 
   return (
-    <div className={"container flex gap-24 justify-center py-4"}>
+    <div className={"container flex max-sm:flex-col gap-24 justify-center py-4"}>
       <div className={"flex flex-col gap-4"}>
         <form
           className={"bg-white p-6 rounded-lg shadow-md"}
@@ -234,7 +234,7 @@ export default function Home() {
         </form>
       </div>
       <div
-        className={"flex flex-col items-center overflow-y-auto max-h-screen"}
+        className={"flex flex-col items-center md:overflow-y-auto md:max-h-screen"}
       >
         <span className="text-3xl">My Cat's</span>
         <table className="table-auto  mt-4">
