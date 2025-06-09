@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Having [`Node.js`](https://nodejs.org/en) installed on your PC is mandatory to run this application.
 
-## Getting Started
+## Getting Started, Deploy app
 
 First, run the development server:
 
@@ -15,22 +16,28 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Both API and frontend are included in the same project, so you should be able to access everything once the app is running.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**WARNING:** If the app doesn't load information, please make sure you specified the right app url on `line 12` in `app/page.tsx`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### API Endpoints
+- `GET /api/cats` - Retrieve all cats in the database
+- `GET /api/cats/[id]` - Retrieve a cat with specified id
+- `POST /api/cats` - Add new a cat in the database. Make sure to include `photo_url, name, age, weight` fields in the formData request body
+- `DELETE /api/cats/[id]` - Delete a given cat id from the database
 
-## Learn More
+## How the application and api could be extended and improved
+Regarding the api, we can create more endpoints, for example, update cat information.
+The application could be improved in many ways such as:
+ - Add a favorite cat
+ - Sort cat by age or weight on the web page
+ - Create a kind of relationship between cats, like parent, child or brother
+ - Add more information about cats, like skin color, birthdate, eye color
 
-To learn more about Next.js, take a look at the following resources:
+## Packages versions used
+### Next: 15.3.3
+### React & React-dom: 19.0.0
+### sqlite: 5.1.1 
+### sqlite3: 5.1.7
+### zod: 3.25.56
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

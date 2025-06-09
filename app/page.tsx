@@ -8,7 +8,8 @@ import { Cat } from "@/data/types";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function Home() {
-  const apiUrl = `http://localhost:${window.location.port || 3000}/api/cats`;
+  // !!! MAKE SURE TO UPDATE THE PORT NUMBER ACCORDINGLY !!!
+  const apiUrl = `http://localhost:3000/api/cats`;
 
   const [catImg, setCatImg] = useState("");
   const [cats, setCats] = useState<Cat[]>([]);
@@ -236,7 +237,7 @@ export default function Home() {
         className={"flex flex-col items-center overflow-y-auto max-h-screen"}
       >
         <span className="text-3xl">My Cat's</span>
-        <table className="table-auto mt-4">
+        <table className="table-auto  mt-4">
           <thead>
             <tr>
               <th>Name</th>
