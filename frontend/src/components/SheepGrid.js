@@ -5,6 +5,7 @@ export function renderGrid(data, containerId = "sheep-grid") {
   container.innerHTML = "";
 
   const headers = [
+    { key: "id", label: "ID" }, 
     { key: "name", label: "Name" },
     { key: "age", label: "Age" },
     { key: "breed", label: "Breed" },
@@ -76,6 +77,7 @@ export function renderGrid(data, containerId = "sheep-grid") {
       row.classList.add("hover:bg-gray-100");
 
       const cells = [
+        sheep.id,
         sheep.name,
         sheep.age,
         sheep.breed,
