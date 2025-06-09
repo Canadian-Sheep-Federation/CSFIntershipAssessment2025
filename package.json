@@ -1,0 +1,24 @@
+{
+  "name": "grazing-logbook-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sheep",
+    "grazing",
+    "logbook",
+    "weather",
+    "farm"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "A tool for sheep farmers to log daily grazing activities and check the weather forecast to plan effectively.",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1"
+  }
+}

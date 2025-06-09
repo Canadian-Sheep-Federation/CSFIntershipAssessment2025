@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grazing Logbook</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Grazing Logbook</h1>
+    <form id="grazingForm">
+        <label>Date: <input type="date" name="date" required></label>
+        <label>Paddock: <input type="text" name="paddock" required></label>
+        <label>Sheep Count: <input type="number" name="sheep_count" required></label>
+        <label>Notes: <textarea name="notes"></textarea></label>
+        <fieldset>
+            <legend>Weather (optional)</legend>
+            <label>Temperature (°C): <input type="number" name="temperature" step="any"></label>
+            <label>Windspeed (km/h): <input type="number" name="windspeed" step="any"></label>
+            <label>Weather Code: <input type="number" name="weathercode"></label>
+            <label>Description: <input type="text" name="description"></label>
+            <label>Precipitation (mm): <input type="number" name="precipitation" step="any"></label>
+        </fieldset>
+        <button type="submit">Add Grazing Log</button>
+    </form>
+
+    <h2>Check Current Weather</h2>
+    <button id="useLocationBtn">Use My Location</button>
+    <label>Latitude: <input type="number" id="latitude" step="any"></label>
+    <label>Longitude: <input type="number" id="longitude" step="any"></label>
+    <button id="getWeatherBtn">Get Weather</button>
+    <div id="weatherResult"></div>
+
+    <h2>All Grazing Logs</h2>
+    <div id="logs"></div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
