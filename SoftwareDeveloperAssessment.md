@@ -65,3 +65,9 @@ You must build a web application that:
 
 Fork this repository and create a pull request for your branch back into
 this repo once completed.
+
+## Internship Submission
+
+[Grazing Logbook App](https://github.com/sarahrosehassan/grazing-logbook-app)  
+A web application and REST API for logging sheep grazing activities, with weather integration using the Open-Meteo public API.  
+See the README in the linked repository for setup and usage instructions.
