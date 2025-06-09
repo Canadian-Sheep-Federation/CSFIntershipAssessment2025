@@ -1,5 +1,5 @@
 # 🐑 CSF - SoftwareDeveloperAssessment
-![image](https://github.com/user-attachments/assets/e8f95c16-4d83-40a2-bfdb-cf578bf74456)
+![image](https://github.com/user-attachments/assets/b38d842d-8c50-40f1-8d07-af8f92b0cc11)
 
 This project is a full-stack web application developed for the Canadian Sheep Federation (CSF) internship take-home assessment. It includes a RESTful API using **Node.js, Express, and SQLite** and a responsive frontend built with **Vite and Vanilla JavaScript**.
 
