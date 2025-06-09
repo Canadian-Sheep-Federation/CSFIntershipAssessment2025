@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cat Survey</title>
+</head>
+<body>
+  <h1>🐱 Cat Survey</h1>
+
+  <h3>Random Cat Image</h3>
+  <img id="catImage" width="300" alt="Loading cat..."/>
+
+  <hr/>
+
+  <h3>Submit Your Cat Preferences</h3>
+  <form id="catForm">
+    <label>Name: <input type="text" id="name" required /></label><br/><br/>
+    <label>Favorite Cat Breed: <input type="text" id="breed" required /></label><br/><br/>
+    <label>Why?:<br/><textarea id="reason" rows="4" cols="40" required></textarea></label><br/><br/>
+    <button type="submit">Submit</button>
+  </form>
+
+  <hr/>
+
+  <h3>All Responses</h3>
+  <ul id="responsesList"></ul>
+
+  <script>
+    // Show cat image
+    fetch('https://api.thecatapi.com/v1/images/search')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('catImage').src = data[0].url;
+      });
+
+    // Submit form
+    const form = document.getElementById('catForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const breed = document.getElementById('breed').value;
+      const reason = document.getElementById('reason').value;
+
+      await fetch('http://localhost:3000/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, breed, reason })
+      });
+
+      alert('Submitted!');
+      form.reset();
+      loadResponses();
+    });
+
+    // Load responses
+    async function loadResponses() {
+      const res = await fetch('http://localhost:3000/');
+      const data = await res.json();
+      const list = document.getElementById('responsesList');
+      list.innerHTML = '';
+      data.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.name} loves ${entry.breed} because "${entry.reason}"`;
+        list.appendChild(li);
+      });
+    }
+
+    loadResponses();
+  </script>
+</body>
+</html>
