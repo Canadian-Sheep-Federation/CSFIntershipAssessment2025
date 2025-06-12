@@ -25,13 +25,15 @@ This can be improved by adding more features of searching and filtering anime, m
 ```bash
 git clone https://github.com/edwardhe10/CSFIntershipAssessment2025.git
 ```
-## Backend Setup
+## Backend Setup and Start
 ```bash
 cd backend
 npm install
+node server.js
 ```
-## Frontend Setup
+## Frontend Setup and Start
 ```bash
 cd frontend
 npm install
+npm start
 ```
