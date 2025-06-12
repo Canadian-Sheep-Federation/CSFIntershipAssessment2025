@@ -16,6 +16,22 @@ This can be improved by adding more features of searching and filtering anime, m
 - Clear displays
 
 # Running the App
-- Install Node.js (v18+), npm, Git
+## Installations
+- Node.js (v18+)
+- npm
+- Git
 
-
+## Clone
+```bash
+git clone https://github.com/edwardhe10/CSFIntershipAssessment2025.git
+```
+## Backend Setup
+```bash
+cd backend
+npm install
+```
+## Frontend Setup
+```bash
+cd frontend
+npm install
+```
