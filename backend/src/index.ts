@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+
+
 app.get("/word", async (req, res) => {
   const word = req.query.word as string | undefined;
   if (!word) {
@@ -18,6 +20,7 @@ app.get("/word", async (req, res) => {
   const wordPrisma = await prisma.word.findFirst({
     where: {word},
     select: {
+      id: true,
       sentences: {
         select: {
           id: true,
@@ -43,23 +46,81 @@ app.get("/word", async (req, res) => {
     return;
   }
 
-  const externalWordData = apiData.result.result;
-  const wordRes = {
-    word: externalWordData.term,
-    definition: externalWordData.definition,
-    partOfSpeech: externalWordData.partofspeech,
-    sentences: []
-  };
-
-  const newWord = await prisma.word.create({
+  const externalWordData = apiData.result[0];
+  const { id, definition, partOfSpeech } = await prisma.word.create({
     data: {
-      word: wordRes.word,
-      definition: wordRes.definition,
-      partOfSpeech: wordRes.partOfSpeech,
+      word: externalWordData.term,
+      definition: externalWordData.definition,
+      partOfSpeech: externalWordData.partofspeech,
     }
   });
-  console.log(wordRes);
-  res.json({ result: wordRes });
+  
+  res.json({ result: { id, word, definition, partOfSpeech } });
+});
+
+app.post("/sentence/:wordId", async (req, res) => {
+  const { wordId } = req.params;
+  const { text } = req.body;
+
+  if (!text) {
+    res.status(400).json({ error: "Text is required" });
+  }
+
+  const sentence = await prisma.sentence.create({
+    data: {
+      text,
+      word: {
+        connect: { id: wordId }
+      }
+    }
+  });
+
+  res.json({ result: sentence });
+});
+
+app.get("/sentence/:sentenceId", async (req, res) => {
+  const { sentenceId } = req.params;
+
+  const sentence = await prisma.sentence.findUnique({
+    where: { id: sentenceId },
+    include: {
+      word: {
+        select: {
+          id: true,
+          word: true,
+          definition: true,
+          partOfSpeech: true,
+        }
+      }
+    }
+  });
+
+  if (!sentence) {
+    res.status(404).json({ error: "Sentence not found" });
+  }
+
+  res.json({ result: sentence });
+});
+
+app.get("/sentences", async (req, res) => {
+  const sentences = await prisma.sentence.findMany({
+    include: {
+      word: {
+        select: {
+          id: true,
+          word: true,
+          definition: true,
+          partOfSpeech: true,
+        }
+      }
+    },
+    take: 10,
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
+
+  res.json({ result: sentences });
 });
 
 app.listen(PORT, () => {
