@@ -2,23 +2,21 @@
 
 ## Overview
 
-This is a full-stack application that allows users to rate an actor or actress's acting in a move or TV Show. Powered by the IMDb API.
+This is a full-stack application that allows users to search for definitions of words and view and even add example sentences for those words using the STANDS4 API for the dictionary API used.
 
 ## Technologies Used
 
 ### Backend
 
 - Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- IMDb API
+- Prisma
+- Postgres
 
 ### Frontend
 
 - React.js
-- Vite
-- SCSS
+- Next.js
+- Tailwind CSS
 
 ## How it can be extended
 
@@ -28,17 +26,28 @@ This is a full-stack application that allows users to rate an actor or actress's
 ## How to Run
 
 ### Backend
+- Please set up a PostgreSQL database by proving the database through the `DATABASE_URL` environment variable through `/backend/.env` file.
+- Then to apply the schema, run the following command in the `/backend` directory:
+  ```bash
+  npx prisma migrate dev --name init
+  ```
+- To set up the dictionary API through the [STANDS4 Synonyms API](https://www.synonyms.com/synonyms_api.php), please get the credentials from [STANDS4](https://www.abbreviations.com/api.php) and set the `UID` and `TOKEN_ID` environment variables from your account
 
-Prepare a MongoDB database and set the `MONGO_URL` environment variable to the URL of the database. Then, set the `IMDB_API_KEY` environment variable to the IMDb API key. Finally, run `npm install` and `npm start` to start the backend server. You can set the environment variables in a `.env` file, make sure it is at `/server/.env`.
 
 > **Note:** You must use Node.js v18 or higher, or else you must use [`node-fetch`](https://www.npmjs.com/package/node-fetch).
 
 ### Frontend
 
-Set the `VITE_API_URL` environment variable to the URL of the backend API. Then, run `npm install` and `npm run dev` to start the frontend server. You can set the environment variables in a `.env` file, make sure it is at `/frontend/.env`.
-
-## How to Deploy
-
-The backend is a standard Node.js application and would be deployed like any typical Node.js application. Be sure to set the `IMDB_API_KEY` environment variable as well as `MONGO_URL` for a MongoDB database to store and connect to.
-
-The frontend is made with React.js and Vite. Be sure to set the `VITE_API_URL` environment variable to the URL of the backend API. Refer to the Vite [documentation](https://vitejs.dev/guide/static-deploy.html) for more information on how to deploy a Vite application.
+- If the backend is not on `localhost:3000`, please set the `NEXT_PUBLIC_API_URL` environment variable in the `/frontend/.env` file to the URL of the backend API.
+- To run the frontend, run the following command in the `/frontend` directory (make sure the backend is running first in localhost:3000 or set the URL in the `NEXT_PUBLIC_API_URL` environment variable):
+  ```bash
+  npm run dev
+  ```
+  Or if you want to build the frontend, run:
+  ```bash
+  npm run build
+  ```
+- Then you can run the built frontend with:
+  ```bash 
+  npm start
+  ```
