@@ -1,21 +1,26 @@
 import express from "express";
 import 'dotenv/config'
-import {PrismaClient} from "../generated/prisma/index.js"
+import { PrismaClient} from "../generated/prisma/index.js"
+import cors from "cors";
 
 const prisma = new PrismaClient();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 
 
 
 app.get("/word", async (req, res) => {
-  const word = req.query.word as string | undefined;
+  let word = req.query.word as string | undefined;
   if (!word) {
     res.status(400).json({ error: "Word query parameter is required" });
+    return;
   }
+
+  word = word.trim().toLowerCase();
 
   const wordPrisma = await prisma.word.findFirst({
     where: {word},
@@ -34,7 +39,6 @@ app.get("/word", async (req, res) => {
   });
 
   if (wordPrisma) {
-    console.log(wordPrisma);
     res.json({ result: wordPrisma });
     return;
   }
@@ -42,11 +46,18 @@ app.get("/word", async (req, res) => {
   const apiData = await apiReq.json();
 
   if (apiData.error) {
-    res.status(404).json({ error: "Word not found" });
+    res.status(404).json({ error: "Error finding word" });
     return;
   }
 
-  const externalWordData = apiData.result[0];
+  const wordsResults = apiData.result.filter((r: any) => r.term=== word);
+  if (apiData.result.length === 0 || wordsResults.length === 0) {
+    res.status(404).json({ error: "Word not found in dictionary API" });
+    return;
+  }
+
+  const externalWordData = wordsResults[0];
+
   const { id, definition, partOfSpeech } = await prisma.word.create({
     data: {
       word: externalWordData.term,
@@ -102,25 +113,23 @@ app.get("/sentence/:sentenceId", async (req, res) => {
   res.json({ result: sentence });
 });
 
-app.get("/sentences", async (req, res) => {
-  const sentences = await prisma.sentence.findMany({
-    include: {
-      word: {
+app.get("/words", async (_req, res) => {
+  const words = await prisma.word.findMany({
+    select: {
+      id: true,
+      word: true,
+      definition: true,
+      partOfSpeech: true,
+      sentences: {
         select: {
           id: true,
-          word: true,
-          definition: true,
-          partOfSpeech: true,
+          text: true,
         }
       }
-    },
-    take: 10,
-    orderBy: {
-      createdAt: 'desc'
     }
   });
 
-  res.json({ result: sentences });
+  res.json({ result: words });
 });
 
 app.listen(PORT, () => {
