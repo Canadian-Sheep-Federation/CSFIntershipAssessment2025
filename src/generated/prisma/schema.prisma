@@ -1,0 +1,20 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model FormSubmission {
+  id        Int      @id @default(autoincrement())
+  country   String
+  reason    String
+  visited   Boolean
+  createdAt DateTime @default(now())
+}
