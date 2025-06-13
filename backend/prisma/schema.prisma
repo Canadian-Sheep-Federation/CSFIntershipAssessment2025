@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Word {
+  id        String     @id @default(uuid())
+  word      String     @unique
+  definition String
+  partOfSpeech String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  sentences Sentence[]
+}
+
+model Sentence {
+  id        String   @id @default(uuid())
+  text      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  wordId    String
+  word      Word     @relation(fields: [wordId], references: [id])
+}
